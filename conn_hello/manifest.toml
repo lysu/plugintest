@@ -1,0 +1,14 @@
+name = "conn_hello"
+kind = "Audit"
+description = "conn hello"
+version = "1"
+license = "GPL"
+sysVars = [
+    {name="conn_hello_message", scope="Global", value="1"},
+]
+validate = "Validate"
+onInit = "OnInit"
+onShutdown = "OnShutdown"
+export = [
+    {extPoint="NotifyEvent", impl="NotifyEvent"}
+]
