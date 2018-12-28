@@ -27,9 +27,13 @@ func OnShutdown(ctx context.Context, manifest *plugin.Manifest) error {
 }
 
 // NotifyEvent implements TiDB Audit plugin's NotifyEvent SPI.
-func NotifyEvent(ctx context.Context) error {
+func NotifyEvent(ctx context.Context, sctx *variable.SessionVars) error {
+	message, err := variable.GetGlobalSystemVar(sctx, "conn_hello_message")
+	if err != nil {
+		return err
+	}
 	fmt.Printf("plugin_conn_hello receive OnConn event from %s and say %s\n",
-		ctx.Value("ip"), variable.GetSysVar("conn_hello_message").Value,
+		ctx.Value("ip"), message,
 	)
 	return nil
 }
